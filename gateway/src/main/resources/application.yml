@@ -1,0 +1,77 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user/**
+          filters:
+            - RewritePath=/user/(?<path>.*), /$\{path}
+            - name: AuthenticationHeaderFilter
+              args:
+                authenticationServicePath: lb://authentication-service
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/product/**
+          filters:
+            - RewritePath=/product/(?<path>.*), /$\{path}
+    consul:
+      host: consul
+      port: 8500
+      discovery:
+        register: false
+        registerHealthCheck: false
+
+server:
+  port: 8900
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: authentication-service
+          uri: http://localhost:8901
+          predicates:
+            - Path=/authentication/**
+          filters:
+            - RewritePath=/authentication/(?<path>.*), /$\{path}
+        - id: user-service
+          uri: http://localhost:8902
+          predicates:
+            - Path=/user/**
+          filters:
+            - RewritePath=/user/(?<path>.*), /$\{path}
+            - name: AuthenticationHeaderFilter
+              args:
+                authenticationServicePath: http://localhost:8901
+        - id: product-service
+          uri: http://localhost:8903
+          predicates:
+            - Path=/product/**
+          filters:
+            - RewritePath=/product/(?<path>.*), /$\{path}
+    consul:
+      host: localhost
+      port: 8500
+
+server:
+  port: 8910

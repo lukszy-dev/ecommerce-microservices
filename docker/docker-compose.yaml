@@ -1,0 +1,63 @@
+version: '3'
+
+#https://hub.docker.com/_/consul
+
+services:
+  consul:
+    image: consul
+    ports:
+      - 8400:8400
+      - 8500:8500
+      - 8600:8600
+      - 8600:8600/udp
+
+  db:
+    image: mysql:8.0
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=root
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    ports:
+      - 3306:3306
+
+  gateway-service:
+    image: gateway:0.0.1-SNAPSHOT
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    ports:
+      - 8900:8900
+    depends_on:
+      - consul
+
+  authentication-service:
+    image: authentication:0.0.1-SNAPSHOT
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    ports:
+      - 8901:8901
+    depends_on:
+      - consul
+      - db
+
+  user-service:
+    image: user:0.0.1-SNAPSHOT
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    ports:
+      - 8902:8902
+    depends_on:
+      - consul
+      - db
+
+  product-service:
+    image: product:0.0.1-SNAPSHOT
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    ports:
+      - 8903:8903
+    depends_on:
+      - consul
+      - db

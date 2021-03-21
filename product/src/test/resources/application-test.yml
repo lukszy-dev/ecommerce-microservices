@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: product-service
+  cloud:
+    consul:
+      enabled: false

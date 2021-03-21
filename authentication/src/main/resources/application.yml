@@ -1,0 +1,48 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+  application:
+    name: authentication-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: jdbc:mysql://db:3306/authentication
+    username: user
+    password: password
+  cloud:
+    consul:
+      host: consul
+      port: 8500
+
+server:
+  port: 8901
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  application:
+    name: authentication-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/authentication
+    username: user
+    password: password
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+
+server:
+  port: 8911

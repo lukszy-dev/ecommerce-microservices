@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: order-service
+  cloud:
+    consul:
+      enabled: false

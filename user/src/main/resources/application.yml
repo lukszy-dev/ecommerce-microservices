@@ -1,0 +1,35 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+  application:
+    name: user-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: jdbc:mysql://db:3306/user
+    username: user
+    password: password
+  cloud:
+    consul:
+      host: consul
+      port: 8500
+
+server:
+  port: 8902
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+
+#https://spring.io/blog/2020/08/14/config-file-processing-in-spring-boot-2-4
