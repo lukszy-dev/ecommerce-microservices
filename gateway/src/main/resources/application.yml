@@ -10,15 +10,21 @@ spring:
         locator:
           enabled: true
       routes:
+        - id: authentication-service
+          uri: lb://authentication-service
+          predicates:
+            - Path=/authentication/**
+          filters:
+            - RewritePath=/authentication/(?<path>.*), /$\{path}
         - id: user-service
           uri: lb://user-service
           predicates:
             - Path=/user/**
           filters:
             - RewritePath=/user/(?<path>.*), /$\{path}
-            - name: AuthenticationHeaderFilter
+            - name: Authentication
               args:
-                authenticationServicePath: lb://authentication-service
+                tokenValidatorPath: lb://authentication-service/token/validate
         - id: product-service
           uri: lb://product-service
           predicates:
@@ -28,9 +34,6 @@ spring:
     consul:
       host: consul
       port: 8500
-      discovery:
-        register: false
-        registerHealthCheck: false
 
 server:
   port: 8900
@@ -60,9 +63,9 @@ spring:
             - Path=/user/**
           filters:
             - RewritePath=/user/(?<path>.*), /$\{path}
-            - name: AuthenticationHeaderFilter
+            - name: Authentication
               args:
-                authenticationServicePath: http://localhost:8901
+                tokenValidatorPath: http://localhost:8901/token/validate
         - id: product-service
           uri: http://localhost:8903
           predicates:

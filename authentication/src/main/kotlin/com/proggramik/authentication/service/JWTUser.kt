@@ -5,7 +5,7 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
-class JwtUser(
+class JWTUser(
     private val passwordCredential: PasswordCredential
 ) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {

@@ -5,6 +5,7 @@ spring:
   application:
     name: authentication-service
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: update
     properties:
@@ -22,6 +23,11 @@ spring:
 server:
   port: 8901
 
+jwt:
+  secret: secret
+  expiration: 1000
+  prefix: 'Bearer '
+
 ---
 spring:
   config:
@@ -30,6 +36,7 @@ spring:
   application:
     name: authentication-service
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: update
     properties:
@@ -46,3 +53,8 @@ spring:
 
 server:
   port: 8911
+
+jwt:
+  secret: secret
+  expiration: 1000
+  prefix: 'Bearer '

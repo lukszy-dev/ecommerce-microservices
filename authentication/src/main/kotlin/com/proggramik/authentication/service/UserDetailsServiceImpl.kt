@@ -7,19 +7,18 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 
 @Service
-class JwtUserDetailsService(
+class UserDetailsServiceImpl(
     private val userCredentialRepository: UserCredentialRepository
 ): UserDetailsService {
 
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(email: String): UserDetails {
-        val credential = this.userCredentialRepository.findByEmail(email)
+        val passwordCredential = userCredentialRepository.findByEmail(email)
 
-        if (credential == null) {
+        if (passwordCredential == null) {
             throw UsernameNotFoundException(String.format("No user found with email '%s'.", email))
         } else {
-            return JwtUser(credential)
+            return JWTUser(passwordCredential)
         }
     }
-
 }

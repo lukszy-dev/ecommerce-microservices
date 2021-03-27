@@ -1,4 +1,7 @@
 spring:
+  config:
+    activate:
+      on-profile: test
   application:
     name: gateway-service
   cloud:

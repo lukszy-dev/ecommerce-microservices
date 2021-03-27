@@ -1,6 +1,6 @@
 package com.proggramik.authentication.config
 
-import com.proggramik.authentication.service.JwtUserDetailsService
+import com.proggramik.authentication.service.UserDetailsServiceImpl
 import org.springframework.context.annotation.Bean
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -14,19 +14,25 @@ import java.lang.Exception
 
 @EnableWebSecurity
 class SecurityConfig(
-    private val jwtUserDetailsService: JwtUserDetailsService
+    private val userDetailsService: UserDetailsServiceImpl
 ) : WebSecurityConfigurerAdapter() {
-
-    @Throws(Exception::class)
-    override fun configure(authenticationManagerBuilder: AuthenticationManagerBuilder) {
-        authenticationManagerBuilder
-            .userDetailsService(jwtUserDetailsService)
-            .passwordEncoder(passwordEncoder())
-    }
 
     @Bean
     fun passwordEncoder(): PasswordEncoder {
         return BCryptPasswordEncoder()
+    }
+
+    @Bean
+    @Throws(Exception::class)
+    override fun authenticationManagerBean(): AuthenticationManager {
+        return super.authenticationManagerBean()
+    }
+
+    @Throws(Exception::class)
+    override fun configure(authenticationManagerBuilder: AuthenticationManagerBuilder) {
+        authenticationManagerBuilder
+            .userDetailsService(userDetailsService)
+            .passwordEncoder(passwordEncoder())
     }
 
     @Throws(Exception::class)
@@ -35,11 +41,5 @@ class SecurityConfig(
             .cors().and().csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests().anyRequest().permitAll()
-    }
-
-    @Bean
-    @Throws(Exception::class)
-    override fun authenticationManagerBean(): AuthenticationManager {
-        return super.authenticationManagerBean()
     }
 }

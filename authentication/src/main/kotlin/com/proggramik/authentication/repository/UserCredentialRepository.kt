@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface UserCredentialRepository : JpaRepository<PasswordCredential, Long> {
-    fun findByEmail(username: String): PasswordCredential?
+    fun findByEmail(email: String): PasswordCredential?
 }

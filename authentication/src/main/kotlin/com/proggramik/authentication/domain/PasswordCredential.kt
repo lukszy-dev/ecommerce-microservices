@@ -5,6 +5,7 @@ import javax.persistence.*
 
 @Entity
 class PasswordCredential (
+    @Column(unique = true)
     val email: String,
     val password: String,
     val userId: Long,
