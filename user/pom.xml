@@ -16,8 +16,11 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<kotlin.version>1.4.31</kotlin.version>
+		<kotlin.version>1.4.32</kotlin.version>
 		<spring-cloud.version>2020.0.1</spring-cloud.version>
+		<java-jwt.version>3.14.0</java-jwt.version>
+		<jackson-module-kotlin.version>2.12.0</jackson-module-kotlin.version>
+		<feign-reactor.version>2.0.31</feign-reactor.version>
 	</properties>
 
 	<dependencies>
@@ -46,8 +49,37 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.playtika.reactivefeign</groupId>
+			<artifactId>feign-reactor-spring-configuration</artifactId>
+			<version>${feign-reactor.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.playtika.reactivefeign</groupId>
+			<artifactId>feign-reactor-cloud2</artifactId>
+			<version>${feign-reactor.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.playtika.reactivefeign</groupId>
+			<artifactId>feign-reactor-webclient</artifactId>
+			<version>${feign-reactor.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>${java-jwt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-kotlin</artifactId>
+			<version>${jackson-module-kotlin.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>

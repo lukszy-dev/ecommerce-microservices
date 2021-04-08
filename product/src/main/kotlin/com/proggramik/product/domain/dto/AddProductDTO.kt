@@ -1,4 +1,4 @@
-package com.proggramik.user.domain.dto
+package com.proggramik.product.domain.dto
 
 data class AddProductDTO(
     val name: String,

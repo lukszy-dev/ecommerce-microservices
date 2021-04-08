@@ -1,7 +1,7 @@
-package com.proggramik.user
+package com.proggramik.product
 
-import com.proggramik.user.domain.Product
-import com.proggramik.user.repository.ProductRepository
+import com.proggramik.product.domain.Product
+import com.proggramik.product.repository.ProductRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

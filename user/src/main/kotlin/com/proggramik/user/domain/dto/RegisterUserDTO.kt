@@ -1,9 +1,11 @@
 package com.proggramik.user.domain.dto
 
+import com.fasterxml.jackson.annotation.JsonProperty
+
 data class RegisterUserDTO(
-    val name: String,
-    val surname: String,
-    val email: String,
-    val password: String,
-    val confirmation: String
+    @JsonProperty("name") val name: String,
+    @JsonProperty("surname") val surname: String,
+    @JsonProperty("email") val email: String,
+    @JsonProperty("password") val password: String,
+    @JsonProperty("confirmation") val confirmation: String?
 )

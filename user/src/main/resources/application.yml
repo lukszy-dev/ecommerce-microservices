@@ -1,4 +1,6 @@
 spring:
+  main:
+    web-application-type: reactive
   config:
     activate:
       on-profile: prod
@@ -22,14 +24,45 @@ spring:
 server:
   port: 8902
 
+jwt:
+  secret: secret
+  prefix: 'Bearer '
+
 ---
 spring:
+  main:
+    web-application-type: reactive
   config:
     activate:
       on-profile: dev
+  application:
+    name: user-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/user
+    username: user
+    password: password
   cloud:
     consul:
       host: localhost
       port: 8500
+
+server:
+  port: 8912
+  error:
+    #https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.3-Release-Notes#changes-to-the-default-error-pages-content
+    include-message: always
+
+jwt:
+  secret: secret
+  prefix: 'Bearer '
+
+authentication-service:
+  url: localhost:8901
 
 #https://spring.io/blog/2020/08/14/config-file-processing-in-spring-boot-2-4

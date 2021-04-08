@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 import javax.transaction.Transactional
 
 @Repository
-@Transactional(Transactional.TxType.MANDATORY)
+@Transactional(Transactional.TxType.REQUIRED)
 interface UserRepository : JpaRepository<User, Long>

@@ -1,4 +1,4 @@
-package com.proggramik.user.domain
+package com.proggramik.product.domain
 
 import javax.persistence.*
 

@@ -1,7 +1,7 @@
-package com.proggramik.user.controller
+package com.proggramik.product.controller
 
-import com.proggramik.user.domain.dto.AddProductDTO
-import com.proggramik.user.service.ProductService
+import com.proggramik.product.domain.dto.AddProductDTO
+import com.proggramik.product.service.ProductService
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping

@@ -27,7 +27,7 @@ class UserController(
     @PostMapping("/login")
     @Throws(AuthenticationException::class)
     fun login(@RequestBody request: LoginRequestDTO): LoginResponseDTO {
-        val userDetails: JWTUser = authenticationManager.authenticate(
+        val userDetails = authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(request.email, request.password)
         ).principal as JWTUser
 

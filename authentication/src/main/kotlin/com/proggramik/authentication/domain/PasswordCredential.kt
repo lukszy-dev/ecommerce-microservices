@@ -8,6 +8,7 @@ class PasswordCredential (
     @Column(unique = true)
     val email: String,
     val password: String,
+    @Column(unique = true)
     val userId: Long,
     @Enumerated(EnumType.STRING)
     val authorities: Authorities,

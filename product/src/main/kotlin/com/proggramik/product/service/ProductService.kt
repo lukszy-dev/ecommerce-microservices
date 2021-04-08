@@ -1,7 +1,7 @@
-package com.proggramik.user.service
+package com.proggramik.product.service
 
-import com.proggramik.user.domain.Product
-import com.proggramik.user.domain.dto.AddProductDTO
+import com.proggramik.product.domain.Product
+import com.proggramik.product.domain.dto.AddProductDTO
 import java.util.*
 
 interface ProductService {
