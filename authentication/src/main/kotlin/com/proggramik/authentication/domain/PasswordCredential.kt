@@ -8,10 +8,9 @@ class PasswordCredential (
     @Column(unique = true)
     val email: String,
     val password: String,
-    @Column(unique = true)
-    val userId: Long,
-    @Enumerated(EnumType.STRING)
-    val authorities: Authorities,
+    @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "user_id")
+    val user: User,
     private var created: Date? = Date(),
     private var updated: Date? = Date(),
     @Id

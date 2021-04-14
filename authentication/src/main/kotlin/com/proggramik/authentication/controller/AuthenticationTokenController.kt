@@ -6,6 +6,7 @@ import com.proggramik.authentication.domain.dto.ValidateTokenRequestDTO
 import com.proggramik.authentication.domain.dto.ValidateTokenResponseDTO
 import com.proggramik.authentication.service.JWTUtils
 import org.springframework.web.bind.annotation.*
+import reactor.core.publisher.Mono
 
 @RestController
 @RequestMapping("/token")
@@ -18,13 +19,13 @@ class AuthenticationTokenController(
     }
 
     @PostMapping("/validate")
-    fun validateToken(@RequestBody request: ValidateTokenRequestDTO): ValidateTokenResponseDTO {
+    fun validateToken(@RequestBody request: ValidateTokenRequestDTO): Mono<ValidateTokenResponseDTO> {
         try {
             jwtUtils.validateToken(request.token)
         } catch (exception: JWTVerificationException) {
-            return ValidateTokenResponseDTO(false, exception.message)
+            return Mono.just(ValidateTokenResponseDTO(false, exception.message))
         }
 
-        return ValidateTokenResponseDTO(true)
+        return Mono.just(ValidateTokenResponseDTO(true))
     }
 }

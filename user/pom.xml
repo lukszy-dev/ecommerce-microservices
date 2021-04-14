@@ -20,7 +20,6 @@
 		<spring-cloud.version>2020.0.1</spring-cloud.version>
 		<java-jwt.version>3.14.0</java-jwt.version>
 		<jackson-module-kotlin.version>2.12.0</jackson-module-kotlin.version>
-		<feign-reactor.version>2.0.31</feign-reactor.version>
 	</properties>
 
 	<dependencies>
@@ -46,30 +45,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.playtika.reactivefeign</groupId>
-			<artifactId>feign-reactor-spring-configuration</artifactId>
-			<version>${feign-reactor.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.playtika.reactivefeign</groupId>
-			<artifactId>feign-reactor-cloud2</artifactId>
-			<version>${feign-reactor.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.playtika.reactivefeign</groupId>
-			<artifactId>feign-reactor-webclient</artifactId>
-			<version>${feign-reactor.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.auth0</groupId>

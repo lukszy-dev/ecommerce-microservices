@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
 import java.security.Principal
-import java.util.*
 
 @RestController
 class UserController(
@@ -20,9 +19,7 @@ class UserController(
     @PreAuthorize("hasRole('USER')")
     fun user(principal: Principal): Mono<String> {
         val name = (principal as CustomAuthenticationToken).name
-        val decodedSubject = String(Base64.getDecoder().decode(name))
-        val subject = decodedSubject.split(':')
-        return Mono.just(subject[1])
+        return Mono.just(name)
     }
 
     @PostMapping("/register")

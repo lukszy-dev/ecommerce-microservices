@@ -1,45 +1,44 @@
 package com.proggramik.authentication.config
 
 import com.proggramik.authentication.service.UserDetailsServiceImpl
+import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest
 import org.springframework.context.annotation.Bean
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.authentication.ReactiveAuthenticationManager
+import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
+import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.security.authentication.AuthenticationManager
-import java.lang.Exception
+import org.springframework.security.web.server.SecurityWebFilterChain
 
-@EnableWebSecurity
+@EnableWebFluxSecurity
 class SecurityConfig(
     private val userDetailsService: UserDetailsServiceImpl
-) : WebSecurityConfigurerAdapter() {
-
+) {
     @Bean
     fun passwordEncoder(): PasswordEncoder {
         return BCryptPasswordEncoder()
     }
 
     @Bean
-    @Throws(Exception::class)
-    override fun authenticationManagerBean(): AuthenticationManager {
-        return super.authenticationManagerBean()
+    fun authenticationManager(): ReactiveAuthenticationManager {
+        val authenticationManager = UserDetailsRepositoryReactiveAuthenticationManager(userDetailsService)
+        authenticationManager.setPasswordEncoder(passwordEncoder())
+        return authenticationManager
     }
 
-    @Throws(Exception::class)
-    override fun configure(authenticationManagerBuilder: AuthenticationManagerBuilder) {
-        authenticationManagerBuilder
-            .userDetailsService(userDetailsService)
-            .passwordEncoder(passwordEncoder())
-    }
-
-    @Throws(Exception::class)
-    override fun configure(httpSecurity: HttpSecurity) {
-        httpSecurity
-            .cors().and().csrf().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .authorizeRequests().anyRequest().permitAll()
+    @Bean
+    fun securityWebFilterChain(httpSecurity: ServerHttpSecurity): SecurityWebFilterChain {
+        return httpSecurity
+            .cors().disable()
+            .csrf().disable()
+            .formLogin().disable()
+            .logout().disable()
+            .httpBasic().disable()
+            .authorizeExchange()
+                .matchers(EndpointRequest.toAnyEndpoint()).permitAll().and()
+            .authorizeExchange()
+                .anyExchange().permitAll().and()
+            .build()
     }
 }

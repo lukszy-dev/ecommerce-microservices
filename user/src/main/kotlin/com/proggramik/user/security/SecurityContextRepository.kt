@@ -17,8 +17,8 @@ import javax.transaction.NotSupportedException
 class SecurityContextRepository(
     private val tokenAuthenticationService: TokenAuthenticationService
 ) : ServerSecurityContextRepository {
-    override fun save(exchange: ServerWebExchange, context: SecurityContext): Mono<Void> {
-        throw NotSupportedException("Method not supported")
+    companion object {
+        const val ROLE_PREFIX = "ROLE_"
     }
 
     override fun load(exchange: ServerWebExchange): Mono<SecurityContext> {
@@ -29,12 +29,18 @@ class SecurityContextRepository(
             val authentication = if (decodedToken == null) {
                 CustomAuthenticationToken()
             } else {
-                CustomAuthenticationToken(decodedToken.subject, listOf(SimpleGrantedAuthority("ROLE_USER")))
+                val role = ROLE_PREFIX + tokenAuthenticationService.getRole(decodedToken)
+                val email = tokenAuthenticationService.getEmail(decodedToken)
+                CustomAuthenticationToken(email, listOf(SimpleGrantedAuthority(role)))
             }
 
             Mono.just(SecurityContextImpl(authentication))
         } catch (exception: JWTVerificationException) {
             Mono.error(ResponseStatusException(HttpStatus.UNAUTHORIZED, exception.message, exception))
         }
+    }
+
+    override fun save(exchange: ServerWebExchange, context: SecurityContext): Mono<Void> {
+        throw NotSupportedException()
     }
 }

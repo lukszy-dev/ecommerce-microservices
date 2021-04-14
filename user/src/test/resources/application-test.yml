@@ -4,3 +4,7 @@ spring:
   cloud:
     consul:
       enabled: false
+
+jwt:
+  secret: secret
+  prefix: 'Bearer '

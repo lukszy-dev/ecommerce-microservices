@@ -4,13 +4,12 @@ import com.proggramik.authentication.domain.PasswordCredential
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
-import java.util.*
 
 class JWTUser(
     private val passwordCredential: PasswordCredential
 ) : UserDetails {
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        return mutableListOf(SimpleGrantedAuthority(passwordCredential.authorities.toString()))
+    fun getPasswordCredential(): PasswordCredential {
+        return passwordCredential
     }
 
     override fun getPassword(): String {
@@ -18,8 +17,13 @@ class JWTUser(
     }
 
     override fun getUsername(): String {
-        val username = passwordCredential.id.toString() + ":" + passwordCredential.email
-        return Base64.getEncoder().encodeToString(username.toByteArray())
+        return passwordCredential.email
+    }
+
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+        return mutableListOf(
+            SimpleGrantedAuthority(passwordCredential.user.authorities.toString())
+        )
     }
 
     override fun isAccountNonExpired(): Boolean {

@@ -1,6 +1,19 @@
 spring:
+  config:
+    activate:
+      on-profile: prod
   application:
     name: product-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: jdbc:mysql://db:3306/product
+    username: user
+    password: password
   cloud:
     consul:
       host: consul
@@ -9,18 +22,35 @@ spring:
 server:
   port: 8903
 
+jwt:
+  secret: secret
+  prefix: 'Bearer '
+
 ---
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
   application:
     name: product-service
-  h2:
-    console:
-      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/product
+    username: user
+    password: password
   cloud:
     consul:
       host: localhost
       port: 8500
 
 server:
-  port: 8903
+  port: 8913
+
+jwt:
+  secret: secret
+  prefix: 'Bearer '

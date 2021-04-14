@@ -20,11 +20,24 @@ class TokenAuthenticationService(
     private val verifier: JWTVerifier = JWT.require(algorithm)
         .build()
 
+    companion object {
+        const val CLAIM_KEY_ROLE = "role"
+        const val CLAIM_KEY_EMAIL = "email"
+    }
+
     private fun resolveToken(bearerToken: String?): String? {
         if (bearerToken !== null && bearerToken.startsWith(prefix)) {
             return bearerToken.substring(prefix.length)
         }
         return null
+    }
+
+    fun getRole(token: DecodedJWT): String {
+        return token.getClaim(CLAIM_KEY_ROLE).asString()
+    }
+
+    fun getEmail(token: DecodedJWT): String {
+        return token.getClaim(CLAIM_KEY_EMAIL).asString()
     }
 
     @Throws(JWTVerificationException::class)

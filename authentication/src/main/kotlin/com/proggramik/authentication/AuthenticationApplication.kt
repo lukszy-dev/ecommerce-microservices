@@ -9,5 +9,5 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient
 class AuthenticationApplication
 
 fun main(args: Array<String>) {
-	runApplication<AuthenticationApplication>(*args)
+    runApplication<AuthenticationApplication>(*args)
 }

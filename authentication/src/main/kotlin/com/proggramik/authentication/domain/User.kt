@@ -1,15 +1,15 @@
 package com.proggramik.authentication.domain
 
-import javax.persistence.Entity
-import javax.persistence.EnumType
-import javax.persistence.Enumerated
-import javax.persistence.OneToOne
+import java.util.*
+import javax.persistence.*
 
-//@Entity
-//class User(
-//    val id: Long,
-//    @Enumerated(EnumType.STRING)
-//    val authorities: Authorities,
-//    @OneToOne(mappedBy = "user")
-//    val passwordCredential: PasswordCredential
-//)
+@Entity
+class User(
+    @Id
+    @Column(name = "id", unique = true, columnDefinition = "BINARY(16)")
+    val id: UUID,
+    @Enumerated(EnumType.STRING)
+    val authorities: Authorities,
+    @OneToOne(mappedBy = "user")
+    val passwordCredential: PasswordCredential? = null
+)

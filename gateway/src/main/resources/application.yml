@@ -22,9 +22,9 @@ spring:
             - Path=/user/**
           filters:
             - RewritePath=/user/(?<path>.*), /$\{path}
-            - name: Authentication
-              args:
-                tokenValidatorPath: lb://authentication-service/token/validate
+#            - name: Authentication
+#              args:
+#                tokenValidatorPath: lb://authentication-service/token/validate
         - id: product-service
           uri: lb://product-service
           predicates:
@@ -63,9 +63,9 @@ spring:
             - Path=/user/**
           filters:
             - RewritePath=/user/(?<path>.*), /$\{path}
-            - name: Authentication
-              args:
-                tokenValidatorPath: http://localhost:8901/token/validate
+#            - name: Authentication
+#              args:
+#                tokenValidatorPath: http://localhost:8901/token/validate
         - id: product-service
           uri: http://localhost:8903
           predicates:
