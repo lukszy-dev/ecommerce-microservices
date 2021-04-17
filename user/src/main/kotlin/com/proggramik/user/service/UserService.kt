@@ -6,6 +6,6 @@ import reactor.core.publisher.Mono
 import java.util.*
 
 interface UserService {
-    fun findUser(id: Long): Optional<User>
+    fun findUser(id: UUID): User?
     fun register(data: RegisterUserDTO): Mono<Boolean>
 }

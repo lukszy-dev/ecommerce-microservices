@@ -30,8 +30,7 @@ class SecurityContextRepository(
                 CustomAuthenticationToken()
             } else {
                 val role = ROLE_PREFIX + tokenAuthenticationService.getRole(decodedToken)
-                val email = tokenAuthenticationService.getEmail(decodedToken)
-                CustomAuthenticationToken(email, listOf(SimpleGrantedAuthority(role)))
+                CustomAuthenticationToken(decodedToken.subject, listOf(SimpleGrantedAuthority(role)))
             }
 
             Mono.just(SecurityContextImpl(authentication))

@@ -1,22 +1,27 @@
 package com.proggramik.product.service
 
 import com.proggramik.product.domain.Product
-import com.proggramik.product.domain.dto.AddProductDTO
+import com.proggramik.product.domain.dto.AddProductRequestDTO
+import com.proggramik.product.domain.dto.ProductDTO
 import com.proggramik.product.repository.ProductRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class ProductServiceImpl(private val productRepository: ProductRepository) : ProductService {
-    override fun listProducts(): List<Product> {
-        return productRepository.findAll()
+    override fun listProducts(): List<ProductDTO> {
+        return productRepository.findAll().map { product ->
+            ProductDTO(product.id!!, product.name, product.description)
+        }
     }
 
-    override fun findProduct(id: Long): Optional<Product> {
-        return productRepository.findById(id)
+    override fun findById(id: Long): ProductDTO? {
+        return productRepository.findByIdOrNull(id)?.let { product ->
+            ProductDTO(product.id!!, product.name, product.description)
+        }
     }
 
-    override fun addProduct(product: AddProductDTO) {
-        productRepository.save(Product(product.name))
+    override fun addProduct(request: AddProductRequestDTO) {
+        productRepository.save(Product(request.name))
     }
 }

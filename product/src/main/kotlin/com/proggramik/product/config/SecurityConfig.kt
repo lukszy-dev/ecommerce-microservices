@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.web.server.SecurityWebFilterChain
 
-private val AUTH_WHITELIST = arrayOf("/products")
+private val AUTH_WHITELIST = arrayOf("/products", "/*")
 
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
@@ -29,7 +29,8 @@ class SecurityConfig(
                 .matchers(EndpointRequest.toAnyEndpoint()).permitAll().and()
             .authorizeExchange()
                 .pathMatchers(*AUTH_WHITELIST).permitAll()
-            .anyExchange().authenticated().and()
+                .pathMatchers("/admin/*").hasRole("ADMIN")
+                .anyExchange().authenticated().and()
             .authenticationManager(authenticationManager)
             .securityContextRepository(securityContextRepository)
             .build()

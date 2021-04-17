@@ -4,7 +4,7 @@ import java.math.BigDecimal
 import javax.persistence.*
 
 @Entity
-class Item(
+class OrderItem(
     @Column(name = "product_name")
     val productName: String,
     @Column(name = "product_price")
@@ -12,8 +12,8 @@ class Item(
     @Column(name = "product_quantity")
     val productQuantity: Int,
     @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    val order: Order,
+    @JoinColumn(name = "order_details_id", nullable = false)
+    val orderDetails: OrderDetails,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null

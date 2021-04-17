@@ -1,11 +1,10 @@
 package com.proggramik.product.service
 
-import com.proggramik.product.domain.Product
-import com.proggramik.product.domain.dto.AddProductDTO
-import java.util.*
+import com.proggramik.product.domain.dto.AddProductRequestDTO
+import com.proggramik.product.domain.dto.ProductDTO
 
 interface ProductService {
-    fun listProducts(): List<Product>
-    fun findProduct(id: Long): Optional<Product>
-    fun addProduct(product: AddProductDTO)
+    fun listProducts(): List<ProductDTO>
+    fun findById(id: Long): ProductDTO?
+    fun addProduct(request: AddProductRequestDTO)
 }

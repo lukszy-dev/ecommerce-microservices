@@ -3,9 +3,9 @@ package com.proggramik.cart.domain
 import javax.persistence.*
 
 @Entity
-class Order(
-    @OneToMany(mappedBy = "order")
-    val items: Set<Item> = emptySet(),
+class OrderDetails(
+    @OneToMany(mappedBy = "orderDetails", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    val orderItems: MutableSet<OrderItem> = hashSetOf(),
     @OneToOne
     @JoinColumn(name = "cart_id")
     val cart: Cart? = null,
