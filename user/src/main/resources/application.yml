@@ -2,6 +2,7 @@ spring:
   config:
     activate:
       on-profile: prod
+    import: 'consul:'
   application:
     name: user-service
   jpa:
@@ -18,6 +19,8 @@ spring:
     consul:
       host: consul
       port: 8500
+      config:
+        format: YAML
 
 server:
   port: 8902
@@ -31,6 +34,7 @@ spring:
   config:
     activate:
       on-profile: dev
+    import: 'consul:'
   application:
     name: user-service
   jpa:
@@ -47,6 +51,8 @@ spring:
     consul:
       host: localhost
       port: 8500
+      config:
+        format: YAML
 
 server:
   port: 8912

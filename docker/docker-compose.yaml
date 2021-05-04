@@ -5,11 +5,15 @@ version: '3'
 services:
   consul:
     image: consul
+    volumes:
+      - ./consul/config:/consul/config
+      - ./consul/data:/consul/data
     ports:
       - 8400:8400
       - 8500:8500
       - 8600:8600
       - 8600:8600/udp
+    command: "agent -server -client 0.0.0.0 -ui -bootstrap-expect 1"
 
   db:
     image: mysql:8.0
@@ -66,8 +70,8 @@ services:
     image: cart:0.0.1-SNAPSHOT
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-    #    ports:
-    #      - 8904:8904
+#    ports:
+#      - 8904:8904
     depends_on:
       - consul
       - db

@@ -7,11 +7,13 @@ import com.proggramik.authentication.domain.dto.RegisterResponseDTO
 import com.proggramik.authentication.service.JWTUser
 import com.proggramik.authentication.service.JWTUtils
 import com.proggramik.authentication.service.UserCredentialService
+import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.ReactiveAuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.server.ResponseStatusException
 import reactor.core.publisher.Mono
 
 @RestController
@@ -30,11 +32,12 @@ class UserController(
     fun login(@RequestBody request: LoginRequestDTO): Mono<LoginResponseDTO> {
         return authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(request.email, request.password)
-        )
-            .map { authentication ->
-                val userDetails = authentication.principal as JWTUser
-                val token = jwtUtils.generateToken(userDetails)
-                LoginResponseDTO(token)
-            }
+        ).onErrorMap { exception ->
+            ResponseStatusException(HttpStatus.UNAUTHORIZED, exception.message, exception)
+        }.map { authentication ->
+            val userDetails = authentication.principal as JWTUser
+            val token = jwtUtils.generateToken(userDetails)
+            LoginResponseDTO(token)
+        }
     }
 }
