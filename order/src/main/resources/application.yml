@@ -3,7 +3,7 @@ spring:
     activate:
       on-profile: prod
   application:
-    name: product-service
+    name: order-service
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,7 +11,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
   datasource:
-    url: jdbc:mysql://db:3306/product
+    url: jdbc:mysql://db:3306/orders
     username: user
     password: password
   cloud:
@@ -34,7 +34,7 @@ spring:
     activate:
       on-profile: dev
   application:
-    name: product-service
+    name: order-service
   jpa:
     hibernate:
       ddl-auto: update
@@ -42,7 +42,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
   datasource:
-    url: jdbc:mysql://localhost:3306/product
+    url: jdbc:mysql://localhost:3306/orders
     username: user
     password: password
   cloud:
@@ -51,10 +51,12 @@ spring:
       port: 8500
 
 server:
-  port: 8903
+  port: 8904
   error:
+    #https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.3-Release-Notes#changes-to-the-default-error-pages-content
     include-message: always
 
 jwt:
   secret: secret
   prefix: 'Bearer '
+

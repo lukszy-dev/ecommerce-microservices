@@ -40,8 +40,6 @@ services:
     image: authentication:0.0.1-SNAPSHOT
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-#    ports:
-#      - 8901:8901
     depends_on:
       - consul
       - db
@@ -50,8 +48,6 @@ services:
     image: user:0.0.1-SNAPSHOT
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-#    ports:
-#      - 8902:8902
     depends_on:
       - consul
       - db
@@ -60,18 +56,14 @@ services:
     image: product:0.0.1-SNAPSHOT
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-#    ports:
-#      - 8903:8903
     depends_on:
       - consul
       - db
 
-  cart-service:
-    image: cart:0.0.1-SNAPSHOT
+  order-service:
+    image: order:0.0.1-SNAPSHOT
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-#    ports:
-#      - 8904:8904
     depends_on:
       - consul
       - db

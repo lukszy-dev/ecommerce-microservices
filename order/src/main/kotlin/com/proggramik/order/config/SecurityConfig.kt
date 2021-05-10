@@ -1,14 +1,12 @@
-package com.proggramik.product.config
+package com.proggramik.order.config
 
-import com.proggramik.product.security.SecurityContextRepository
+import com.proggramik.order.security.SecurityContextRepository
 import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest
 import org.springframework.context.annotation.Bean
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.web.server.SecurityWebFilterChain
-
-private val AUTH_WHITELIST = arrayOf("/products", "/*")
 
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
@@ -24,8 +22,7 @@ class SecurityConfig(
             .logout().disable()
             .httpBasic().disable()
             .authorizeExchange().matchers(EndpointRequest.toAnyEndpoint()).permitAll().and()
-            .authorizeExchange().pathMatchers(*AUTH_WHITELIST).permitAll()
-            .anyExchange().authenticated().and()
+            .authorizeExchange().anyExchange().authenticated().and()
             .securityContextRepository(securityContextRepository)
             .build()
     }

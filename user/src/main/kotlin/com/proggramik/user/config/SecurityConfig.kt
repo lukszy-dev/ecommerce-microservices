@@ -1,6 +1,5 @@
 package com.proggramik.user.config
 
-import com.proggramik.user.security.AuthenticationManager
 import com.proggramik.user.security.SecurityContextRepository
 import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest
 import org.springframework.context.annotation.Bean
@@ -14,7 +13,6 @@ private val AUTH_WHITELIST = arrayOf("/register")
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
 class SecurityConfig(
-    private val authenticationManager: AuthenticationManager,
     private val securityContextRepository: SecurityContextRepository
 ) {
     @Bean
@@ -25,12 +23,9 @@ class SecurityConfig(
             .formLogin().disable()
             .logout().disable()
             .httpBasic().disable()
-            .authorizeExchange()
-                .matchers(EndpointRequest.toAnyEndpoint()).permitAll().and()
-            .authorizeExchange()
-                .pathMatchers(*AUTH_WHITELIST).permitAll()
-                .anyExchange().authenticated().and()
-            .authenticationManager(authenticationManager)
+            .authorizeExchange().matchers(EndpointRequest.toAnyEndpoint()).permitAll().and()
+            .authorizeExchange().pathMatchers(*AUTH_WHITELIST).permitAll()
+            .anyExchange().authenticated().and()
             .securityContextRepository(securityContextRepository)
             .build()
     }

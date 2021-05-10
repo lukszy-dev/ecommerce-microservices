@@ -19,11 +19,13 @@ spring:
     consul:
       host: consul
       port: 8500
+      discovery:
+        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}
       config:
         format: YAML
 
 server:
-  port: 8902
+  port: 0
 
 jwt:
   secret: secret
@@ -55,7 +57,7 @@ spring:
         format: YAML
 
 server:
-  port: 8912
+  port: 8902
   error:
     #https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.3-Release-Notes#changes-to-the-default-error-pages-content
     include-message: always

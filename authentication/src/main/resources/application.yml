@@ -19,9 +19,11 @@ spring:
     consul:
       host: consul
       port: 8500
+      discovery:
+        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}
 
 server:
-  port: 8901
+  port: 0
 
 jwt:
   secret: secret
@@ -52,7 +54,7 @@ spring:
       port: 8500
 
 server:
-  port: 8911
+  port: 8901
   error:
     include-message: always
 

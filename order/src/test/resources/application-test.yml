@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: order-service
+  cloud:
+    consul:
+      enabled: false
+
+jwt:
+  secret: secret
+  expiration: 10
+  prefix: 'Bearer '
