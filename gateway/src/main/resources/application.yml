@@ -31,12 +31,12 @@ spring:
             - Path=/product/**
           filters:
             - RewritePath=/product/(?<path>.*), /$\{path}
-        - id: cart-service
-          uri: lb://cart-service
+        - id: order-service
+          uri: lb://order-service
           predicates:
-            - Path=/cart/**
+            - Path=/order/**
           filters:
-            - RewritePath=/cart/(?<path>.*), /$\{path}
+            - RewritePath=/order/(?<path>.*), /$\{path}
     consul:
       host: consul
       port: 8500
@@ -80,12 +80,12 @@ spring:
             - Path=/product/**
           filters:
             - RewritePath=/product/(?<path>.*), /$\{path}
-        - id: cart-service
+        - id: order-service
           uri: http://localhost:8904
           predicates:
-            - Path=/cart/**
+            - Path=/order/**
           filters:
-            - RewritePath=/cart/(?<path>.*), /$\{path}
+            - RewritePath=/order/(?<path>.*), /$\{path}
     consul:
       host: localhost
       port: 8500

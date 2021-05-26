@@ -1,13 +1,10 @@
 package com.proggramik.order.controller
 
-import com.proggramik.order.domain.dto.AddItemToCartRequestDTO
-import com.proggramik.order.domain.dto.AddItemToCartResponseDTO
+import com.proggramik.order.domain.dto.*
 import com.proggramik.order.security.CustomAuthenticationToken
 import com.proggramik.order.service.CartService
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 import java.security.Principal
 
@@ -16,19 +13,30 @@ import java.security.Principal
 class CartController(
     private val cartService: CartService
 ) {
-    @RequestMapping("/")
+    @GetMapping
     @PreAuthorize("hasRole('USER')")
-    fun getCart(): Mono<String> {
-        return Mono.just("Cart")
+    fun getCart(principal: Principal): Mono<GetCartResponseDTO> {
+        val userId = (principal as CustomAuthenticationToken).getUserUUID()
+        return cartService.getCart(userId)
     }
 
-    @RequestMapping("/add")
+    @PostMapping("/add")
     @PreAuthorize("hasRole('USER')")
-    fun addProductToCart(
+    fun addItemToCart(
         @RequestBody request: AddItemToCartRequestDTO,
         principal: Principal
     ): Mono<AddItemToCartResponseDTO> {
         val userId = (principal as CustomAuthenticationToken).getUserUUID()
-        return cartService.addProductToCart(request, userId)
+        return cartService.addItemToCart(request, userId)
+    }
+
+    @PostMapping("/remove")
+    @PreAuthorize("hasRole('USER')")
+    fun removeItemFromCart(
+        @RequestBody request: RemoveItemFromCartRequestDTO,
+        principal: Principal
+    ): Mono<RemoveItemFromCartResponseDTO> {
+        val userId = (principal as CustomAuthenticationToken).getUserUUID()
+        return cartService.removeItemFromCart(request, userId)
     }
 }

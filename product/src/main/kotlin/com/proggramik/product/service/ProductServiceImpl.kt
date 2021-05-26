@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import reactor.core.publisher.Mono
+import java.math.BigDecimal
 
 @Service
 class ProductServiceImpl(private val productRepository: ProductRepository) : ProductService {
@@ -28,7 +29,7 @@ class ProductServiceImpl(private val productRepository: ProductRepository) : Pro
     }
 
     override fun addProduct(request: AddProductRequestDTO): Mono<AddProductResponseDTO> {
-        val product = productRepository.save(Product(request.name))
+        val product = productRepository.save(Product(request.name, BigDecimal(request.price)))
         return Mono.just(AddProductResponseDTO(product.id))
     }
 
@@ -36,7 +37,7 @@ class ProductServiceImpl(private val productRepository: ProductRepository) : Pro
         return try {
             productRepository.deleteById(request.productId)
             Mono.just(true)
-        } catch (exception : EmptyResultDataAccessException) {
+        } catch (exception: EmptyResultDataAccessException) {
             Mono.error(ResponseStatusException(HttpStatus.NOT_FOUND, exception.message, exception))
         }
     }

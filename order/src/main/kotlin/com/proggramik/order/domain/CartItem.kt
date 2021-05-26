@@ -9,7 +9,7 @@ class CartItem(
     @ManyToOne
     @JoinColumn(name = "cart_id", nullable = false)
     val cart: Cart,
-    val quantity: Int,
+    var quantity: Int,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
