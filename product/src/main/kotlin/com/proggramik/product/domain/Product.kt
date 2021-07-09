@@ -9,8 +9,8 @@ data class Product (
     @Column(precision = 10, scale = 2)
     val price: BigDecimal,
     val description: String? = "",
-    @ManyToOne
-    val category: Category? = null,
+//    @ManyToOne
+//    val category: Category? = null,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null

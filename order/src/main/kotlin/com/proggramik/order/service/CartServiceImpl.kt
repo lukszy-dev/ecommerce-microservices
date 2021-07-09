@@ -42,7 +42,7 @@ class CartServiceImpl(
                 cart.cartItems.add(CartItem(product.id, cart, request.quantity))
             }
 
-            cartRepository.saveAndFlush(cart)
+            cartRepository.save(cart)
 
             AddItemToCartResponseDTO(cart.cartItems.size)
         }.switchIfEmpty(

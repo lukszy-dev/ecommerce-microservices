@@ -18,6 +18,9 @@
 		<java.version>11</java.version>
 		<kotlin.version>1.4.32</kotlin.version>
 		<spring-cloud.version>2020.0.1</spring-cloud.version>
+		<docker.registry.url/>
+		<docker.registry.username/>
+		<docker.registry.password/>
 	</properties>
 
 	<dependencies>
@@ -67,6 +70,19 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<image>
+						<name>${docker.registry.url}/ecommerce-microservices/${project.artifactId}:${project.version}</name>
+						<publish>true</publish>
+					</image>
+					<docker>
+						<publishRegistry>
+							<username>${docker.registry.username}</username>
+							<password>${docker.registry.password}</password>
+							<url>${docker.registry.url}</url>
+						</publishRegistry>
+					</docker>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.jetbrains.kotlin</groupId>

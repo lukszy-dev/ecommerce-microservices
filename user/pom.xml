@@ -20,6 +20,10 @@
 		<spring-cloud.version>2020.0.1</spring-cloud.version>
 		<java-jwt.version>3.14.0</java-jwt.version>
 		<jackson-module-kotlin.version>2.12.0</jackson-module-kotlin.version>
+		<feign-reactor.version>3.0.3</feign-reactor.version>
+		<docker.registry.url/>
+		<docker.registry.username/>
+		<docker.registry.password/>
 	</properties>
 
 	<dependencies>
@@ -56,6 +60,12 @@
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.playtika.reactivefeign</groupId>
+			<artifactId>feign-reactor-spring-cloud-starter</artifactId>
+			<version>${feign-reactor.version}</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
 			<version>${java-jwt.version}</version>
@@ -70,6 +80,11 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-slf4j</artifactId>
+			<version>11.2</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -80,6 +95,10 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-openfeign-core</artifactId>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
@@ -101,6 +120,19 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<image>
+						<name>${docker.registry.url}/${project.artifactId}/${project.artifactId}:${project.version}</name>
+						<publish>true</publish>
+					</image>
+					<docker>
+						<publishRegistry>
+							<username>${docker.registry.username}</username>
+							<password>${docker.registry.password}</password>
+							<url>${docker.registry.url}</url>
+						</publishRegistry>
+					</docker>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.jetbrains.kotlin</groupId>
