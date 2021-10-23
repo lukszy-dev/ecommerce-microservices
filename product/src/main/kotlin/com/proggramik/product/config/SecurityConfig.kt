@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.web.server.SecurityWebFilterChain
 
-private val AUTH_WHITELIST = arrayOf("/products", "/*")
+private val AUTH_WHITELIST = arrayOf("/products", "/*", "/v3/api-docs")
 
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity

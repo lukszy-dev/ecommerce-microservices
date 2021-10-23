@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.web.server.SecurityWebFilterChain
 
+private val AUTH_WHITELIST = arrayOf("/v3/api-docs")
+
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
 class SecurityConfig(
@@ -22,6 +24,7 @@ class SecurityConfig(
             .logout().disable()
             .httpBasic().disable()
             .authorizeExchange().matchers(EndpointRequest.toAnyEndpoint()).permitAll().and()
+            .authorizeExchange().pathMatchers(*AUTH_WHITELIST).permitAll().and()
             .authorizeExchange().anyExchange().authenticated().and()
             .securityContextRepository(securityContextRepository)
             .build()

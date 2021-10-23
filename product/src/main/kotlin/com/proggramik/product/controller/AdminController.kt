@@ -2,13 +2,11 @@ package com.proggramik.product.controller
 
 import com.proggramik.product.domain.dto.AddProductRequestDTO
 import com.proggramik.product.domain.dto.AddProductResponseDTO
+import com.proggramik.product.domain.dto.EditProductRequestDTO
 import com.proggramik.product.domain.dto.RemoveProductRequestDTO
 import com.proggramik.product.service.ProductService
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 
 @RestController
@@ -20,6 +18,14 @@ class AdminController(
     @PostMapping("/add")
     fun addProduct(@RequestBody request: AddProductRequestDTO): Mono<AddProductResponseDTO> {
         return productService.addProduct(request)
+    }
+
+    @PostMapping("/edit/{id}")
+    fun editProduct(
+        @PathVariable("id") id: Long,
+        @RequestBody request: EditProductRequestDTO
+    ): Mono<Boolean> {
+        return productService.editProduct(id, request)
     }
 
     @PostMapping("/remove")

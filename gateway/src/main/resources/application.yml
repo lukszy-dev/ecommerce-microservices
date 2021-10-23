@@ -22,9 +22,6 @@ spring:
             - Path=/user/**
           filters:
             - RewritePath=/user/(?<path>.*), /$\{path}
-#            - name: Authentication
-#              args:
-#                tokenValidatorPath: lb://authentication-service/token/validate
         - id: product-service
           uri: lb://product-service
           predicates:
@@ -37,6 +34,12 @@ spring:
             - Path=/order/**
           filters:
             - RewritePath=/order/(?<path>.*), /$\{path}
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
     consul:
       host: consul
       port: 8500
@@ -71,9 +74,6 @@ spring:
             - Path=/user/**
           filters:
             - RewritePath=/user/(?<path>.*), /$\{path}
-#            - name: Authentication
-#              args:
-#                tokenValidatorPath: http://localhost:8901/token/validate
         - id: product-service
           uri: http://localhost:8903
           predicates:

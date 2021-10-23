@@ -26,7 +26,7 @@ services:
       - 3306:3306
 
   gateway-service:
-    image: ${DOCKER_REGISTRY_URL}/gateway/gateway:0.0.1-SNAPSHOT
+    image: ${DOCKER_REGISTRY_URL}/ecommerce-microservices/gateway:0.0.1-SNAPSHOT
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     ports:
@@ -35,7 +35,7 @@ services:
       - consul
 
   authentication-service:
-    image: ${DOCKER_REGISTRY_URL}/authentication/authentication:0.0.1-SNAPSHOT
+    image: ${DOCKER_REGISTRY_URL}/ecommerce-microservices/authentication:0.0.1-SNAPSHOT
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     depends_on:
@@ -43,7 +43,7 @@ services:
       - db
 
   user-service:
-    image: ${DOCKER_REGISTRY_URL}/user/user:0.0.1-SNAPSHOT
+    image: ${DOCKER_REGISTRY_URL}/ecommerce-microservices/user:0.0.1-SNAPSHOT
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     depends_on:
@@ -51,7 +51,7 @@ services:
       - db
 
   product-service:
-    image: ${DOCKER_REGISTRY_URL}/product/product:0.0.1-SNAPSHOT
+    image: ${DOCKER_REGISTRY_URL}/ecommerce-microservices/product:0.0.1-SNAPSHOT
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     depends_on:
@@ -59,7 +59,7 @@ services:
       - db
 
   order-service:
-    image: ${DOCKER_REGISTRY_URL}/order/order:0.0.1-SNAPSHOT
+    image: ${DOCKER_REGISTRY_URL}/ecommerce-microservices/order:0.0.1-SNAPSHOT
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     depends_on:

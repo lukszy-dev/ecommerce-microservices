@@ -17,10 +17,11 @@
 	<properties>
 		<java.version>11</java.version>
 		<kotlin.version>1.4.32</kotlin.version>
-		<spring-cloud.version>2020.0.1</spring-cloud.version>
+		<spring-cloud.version>2020.0.3</spring-cloud.version>
 		<java-jwt.version>3.14.0</java-jwt.version>
 		<jackson-module-kotlin.version>2.12.0</jackson-module-kotlin.version>
 		<feign-reactor.version>3.0.3</feign-reactor.version>
+		<springdoc-openapi.version>1.5.9</springdoc-openapi.version>
 		<docker.registry.url/>
 		<docker.registry.username/>
 		<docker.registry.password/>
@@ -81,6 +82,11 @@
 			<artifactId>feign-slf4j</artifactId>
 			<version>11.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-webflux-core</artifactId>
+			<version>${springdoc-openapi.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -114,7 +120,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-						<name>${docker.registry.url}/${project.artifactId}/${project.artifactId}:${project.version}</name>
+						<name>${docker.registry.url}/ecommerce-microservices/${project.artifactId}:${project.version}</name>
 						<publish>true</publish>
 					</image>
 					<docker>

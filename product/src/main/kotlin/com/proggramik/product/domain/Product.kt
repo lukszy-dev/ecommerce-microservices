@@ -5,10 +5,10 @@ import javax.persistence.*
 
 @Entity
 data class Product (
-    val name: String,
+    var name: String,
     @Column(precision = 10, scale = 2)
-    val price: BigDecimal,
-    val description: String? = "",
+    var price: BigDecimal,
+    var description: String? = "",
 //    @ManyToOne
 //    val category: Category? = null,
     @Id
