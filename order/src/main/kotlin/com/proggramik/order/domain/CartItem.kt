@@ -4,8 +4,9 @@ import javax.persistence.*
 
 @Entity
 class CartItem(
-    @Column(name = "product_id")
-    val productId: Long,
+    @ManyToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "product_id", nullable = false)
+    val product: Product,
     @ManyToOne
     @JoinColumn(name = "cart_id", nullable = false)
     val cart: Cart,

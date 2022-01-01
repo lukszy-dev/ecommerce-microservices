@@ -9,8 +9,6 @@ class Cart(
     val userId: UUID,
     @OneToMany(mappedBy = "cart", cascade = [CascadeType.ALL], fetch = FetchType.EAGER, orphanRemoval = true)
     var cartItems: MutableSet<CartItem> = hashSetOf(),
-    @OneToOne(mappedBy = "cart")
-    val order: Order? = null,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null

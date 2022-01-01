@@ -5,12 +5,13 @@ import javax.persistence.*
 
 @Entity
 class OrderItem(
-    @Column(name = "product_name")
-    val productName: String,
-    @Column(name = "product_price")
-    val productPrice: BigDecimal,
     @Column(name = "product_quantity")
-    val productQuantity: Int,
+    val quantity: Int,
+    @Column(name = "product_price")
+    val subtotal: BigDecimal,
+    @ManyToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "product_id")
+    val product: Product,
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
     val order: Order,

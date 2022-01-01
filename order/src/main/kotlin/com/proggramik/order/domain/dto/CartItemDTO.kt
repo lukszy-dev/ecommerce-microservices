@@ -1,8 +1,8 @@
 package com.proggramik.order.domain.dto
 
-import com.fasterxml.jackson.annotation.JsonProperty
-
 data class CartItemDTO(
-    @JsonProperty("product_id") val id: Long,
+    val id: Long,
+    val name: String,
+    val price: Double,
     val quantity: Int
 )

@@ -7,10 +7,10 @@ services:
       - ./consul/config:/consul/config
       - ./consul/data:/consul/data
     ports:
-      - 8400:8400
-      - 8500:8500
-      - 8600:8600
-      - 8600:8600/udp
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:8600"
+      - "8600:8600/udp"
     command: "agent -server -client 0.0.0.0 -ui -bootstrap-expect 1"
 
   db:
@@ -23,14 +23,14 @@ services:
       - MYSQL_USER=user
       - MYSQL_PASSWORD=password
     ports:
-      - 3306:3306
+      - "3306:3306"
 
   gateway-service:
     image: ${DOCKER_REGISTRY_URL}/ecommerce-microservices/gateway:0.0.1-SNAPSHOT
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     ports:
-      - 8900:8900
+      - "8900:8900"
     depends_on:
       - consul
 

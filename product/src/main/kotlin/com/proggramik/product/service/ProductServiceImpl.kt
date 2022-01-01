@@ -26,6 +26,7 @@ class ProductServiceImpl(private val productRepository: ProductRepository) : Pro
         }
     }
 
+    @Transactional
     override fun addProduct(request: AddProductRequestDTO): Mono<AddProductResponseDTO> {
         val product = productRepository.save(Product(request.name, BigDecimal(request.price)))
         return Mono.just(AddProductResponseDTO(product.id))
@@ -44,12 +45,20 @@ class ProductServiceImpl(private val productRepository: ProductRepository) : Pro
         return Mono.error(ResponseStatusException(HttpStatus.NOT_FOUND, "Product doesn't exist"))
     }
 
+    @Transactional
     override fun removeProduct(request: RemoveProductRequestDTO): Mono<Boolean> {
         return try {
             productRepository.deleteById(request.productId)
             Mono.just(true)
         } catch (exception: EmptyResultDataAccessException) {
             Mono.error(ResponseStatusException(HttpStatus.NOT_FOUND, exception.message, exception))
+        }
+    }
+
+    @Transactional
+    override fun findAllById(request: FindAllRequestDTO): List<ProductDTO> {
+        return productRepository.findAllById(request.productIds).map { product ->
+            ProductDTO(product.id!!, product.name, product.price.toDouble(), product.description)
         }
     }
 }

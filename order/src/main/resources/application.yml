@@ -49,6 +49,8 @@ spring:
     consul:
       host: localhost
       port: 8500
+      discovery:
+        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}
 
 server:
   port: 8904
@@ -60,3 +62,4 @@ jwt:
   secret: secret
   prefix: 'Bearer '
 
+product-service.url: localhost:8903
