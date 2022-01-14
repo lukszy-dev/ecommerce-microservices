@@ -25,7 +25,7 @@ class UserController(
     @GetMapping("/user")
     @PreAuthorize("hasRole('USER')")
     fun user(principal: Principal): Mono<String> {
-        val userId = (principal as CustomAuthenticationToken).getUserUUID()
+        val userId = (principal as CustomAuthenticationToken).getUserID()
         userService.findUser(userId)?.let {
                 user -> return Mono.just(user.name)
         }

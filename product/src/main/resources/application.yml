@@ -20,6 +20,15 @@ spring:
       port: 8500
       discovery:
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}
+    stream:
+      source: product
+      bindings:
+        addProductOutput:
+          destination: addProduct.exchange
+        editProductOutput:
+          destination: editProduct.exchange
+        removeProductOutput:
+          destination: removeProduct.exchange
 
 server:
   port: 0
@@ -51,6 +60,15 @@ spring:
       port: 8500
       discovery:
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}
+    stream:
+      source: product
+      bindings:
+        addProductOutput:
+          destination: addProduct.exchange
+        editProductOutput:
+          destination: editProduct.exchange
+        removeProductOutput:
+          destination: removeProduct.exchange
 
 server:
   port: 8903

@@ -1,12 +1,11 @@
 package com.proggramik.order.domain
 
-import java.util.*
 import javax.persistence.*
 
 @Entity
 class Cart(
-    @Column(name = "user_id", unique = true, columnDefinition = "BINARY(16)")
-    val userId: UUID,
+    @Column(name = "user_id", unique = true)
+    val userId: Long,
     @OneToMany(mappedBy = "cart", cascade = [CascadeType.ALL], fetch = FetchType.EAGER, orphanRemoval = true)
     var cartItems: MutableSet<CartItem> = hashSetOf(),
     @Id

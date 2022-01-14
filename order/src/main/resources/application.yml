@@ -20,6 +20,19 @@ spring:
       port: 8500
       discovery:
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}
+    stream:
+      bindings:
+        addProduct-in-0:
+          destination: addProduct.exchange
+          group: consumer
+        editProduct-in-0:
+          destination: editProduct.exchange
+          group: consumer
+        removeProduct-in-0:
+          destination: removeProduct.exchange
+          group: consumer
+      function:
+        definition: addProduct;editProduct;removeProduct
 
 server:
   port: 0
@@ -51,6 +64,19 @@ spring:
       port: 8500
       discovery:
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}
+    stream:
+      bindings:
+        addProduct-in-0:
+          destination: addProduct.exchange
+          group: consumer
+        editProduct-in-0:
+          destination: editProduct.exchange
+          group: consumer
+        removeProduct-in-0:
+          destination: removeProduct.exchange
+          group: consumer
+      function:
+        definition: addProduct;editProduct;removeProduct
 
 server:
   port: 8904

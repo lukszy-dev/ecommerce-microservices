@@ -2,7 +2,6 @@ package com.proggramik.order.security
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.GrantedAuthority
-import java.util.*
 
 class CustomAuthenticationToken : UsernamePasswordAuthenticationToken {
     constructor() : super(null, null)
@@ -11,7 +10,7 @@ class CustomAuthenticationToken : UsernamePasswordAuthenticationToken {
         this.details = details
     }
 
-    fun getUserUUID(): UUID {
-        return UUID.fromString(this.name)
+    fun getUserID(): Long {
+        return this.name.toLong()
     }
 }

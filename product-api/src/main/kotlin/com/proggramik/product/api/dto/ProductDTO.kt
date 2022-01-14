@@ -1,4 +1,4 @@
-package com.proggramik.product.domain.dto
+package com.proggramik.product.api.dto
 
 data class ProductDTO(
     val id: Long,

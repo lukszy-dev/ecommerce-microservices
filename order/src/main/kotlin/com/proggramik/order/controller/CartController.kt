@@ -16,7 +16,7 @@ class CartController(
     @GetMapping
     @PreAuthorize("hasRole('USER')")
     fun getCart(principal: Principal): Mono<GetCartResponseDTO> {
-        val userId = (principal as CustomAuthenticationToken).getUserUUID()
+        val userId = (principal as CustomAuthenticationToken).getUserID()
         return cartService.getCart(userId)
     }
 
@@ -26,7 +26,7 @@ class CartController(
         @RequestBody request: AddItemToCartRequestDTO,
         principal: Principal
     ): Mono<AddItemToCartResponseDTO> {
-        val userId = (principal as CustomAuthenticationToken).getUserUUID()
+        val userId = (principal as CustomAuthenticationToken).getUserID()
         return cartService.addItemToCart(request, userId)
     }
 
@@ -36,7 +36,7 @@ class CartController(
         @RequestBody request: RemoveItemFromCartRequestDTO,
         principal: Principal
     ): Mono<RemoveItemFromCartResponseDTO> {
-        val userId = (principal as CustomAuthenticationToken).getUserUUID()
+        val userId = (principal as CustomAuthenticationToken).getUserID()
         return cartService.removeItemFromCart(request, userId)
     }
 }

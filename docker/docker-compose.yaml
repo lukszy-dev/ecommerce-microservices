@@ -25,6 +25,15 @@ services:
     ports:
       - "3306:3306"
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    volumes:
+      - ./rabbitmq/data:/var/lib/rabbitmq/
+      - ./rabbitmq/log:/var/log/rabbitmq/
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
   gateway-service:
     image: ${DOCKER_REGISTRY_URL}/ecommerce-microservices/gateway:0.0.1-SNAPSHOT
     environment:
