@@ -14,12 +14,15 @@ spring:
     url: jdbc:mysql://db:3306/product
     username: user
     password: password
+  rabbitmq:
+    host: rabbitmq
   cloud:
     consul:
       host: consul
       port: 8500
       discovery:
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}
+        health-check-critical-timeout: 3m
     stream:
       source: product
       bindings:
@@ -60,6 +63,7 @@ spring:
       port: 8500
       discovery:
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}
+        health-check-critical-timeout: 3m
     stream:
       source: product
       bindings:

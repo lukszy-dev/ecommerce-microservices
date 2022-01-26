@@ -23,7 +23,7 @@ class CartServiceImpl(
             cart = cartRepository.save(Cart(userId))
         }
 
-        val cartItems = cart!!.cartItems.map { item ->
+        val cartItems = cart.cartItems.map { item ->
             CartItemDTO(item.product.id, item.product.name, item.product.price.toDouble(), item.quantity)
         }
         return Mono.just(GetCartResponseDTO(cartItems))
@@ -37,7 +37,7 @@ class CartServiceImpl(
                 cart = cartRepository.save(Cart(userId))
             }
 
-            val cartItem = cart!!.cartItems.find { item -> item.product.id == product.id }
+            val cartItem = cart.cartItems.find { item -> item.product.id == product.id }
             if (cartItem != null) {
                 cartItem.quantity = request.quantity
             } else {
