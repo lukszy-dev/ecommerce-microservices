@@ -21,7 +21,7 @@ spring:
       port: 8500
       discovery:
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}
-        health-check-critical-timeout: 3m
+        health-check-critical-timeout: 10m
 
 server:
   port: 0
@@ -55,7 +55,7 @@ spring:
       port: 8500
       discovery:
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}
-        health-check-critical-timeout: 3m
+        health-check-critical-timeout: 10m
 
 server:
   port: 8901

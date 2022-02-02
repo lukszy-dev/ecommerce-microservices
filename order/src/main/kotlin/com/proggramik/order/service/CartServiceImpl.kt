@@ -52,7 +52,7 @@ class CartServiceImpl(
         return Mono.error(
             ResponseStatusException(
                 HttpStatus.NOT_FOUND,
-                String.format("Product with id: {id} not found", request.productId)
+                String.format("Product with id: %d not found", request.productId)
             )
         )
     }
