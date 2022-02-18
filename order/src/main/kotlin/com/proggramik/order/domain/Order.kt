@@ -1,5 +1,6 @@
 package com.proggramik.order.domain
 
+import java.math.BigDecimal
 import javax.persistence.*
 
 @Entity
@@ -14,4 +15,8 @@ class Order(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
-)
+) {
+    fun calculateOrderAmount(): BigDecimal {
+        return orderItems.map { it.subtotal }.sumOf { it }
+    }
+}

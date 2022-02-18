@@ -19,10 +19,11 @@
 		<kotlin.version>1.6.10</kotlin.version>
 		<spring-cloud.version>2021.0.0</spring-cloud.version>
 		<java-jwt.version>3.18.3</java-jwt.version>
+		<stripe.version>20.99.0</stripe.version>
 		<jackson-module-kotlin.version>2.13.1</jackson-module-kotlin.version>
 		<feign-reactor.version>3.1.5</feign-reactor.version>
 		<feign-slf4j.version>11.8</feign-slf4j.version>
-		<springdoc-openapi.version>1.6.3</springdoc-openapi.version>
+		<springdoc-openapi.version>1.6.5</springdoc-openapi.version>
 		<docker.registry.url/>
 		<docker.registry.username/>
 		<docker.registry.password/>
@@ -72,6 +73,11 @@
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
 			<version>${java-jwt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.stripe</groupId>
+			<artifactId>stripe-java</artifactId>
+			<version>${stripe.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.module</groupId>
