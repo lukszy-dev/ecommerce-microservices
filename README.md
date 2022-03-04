@@ -9,11 +9,14 @@
 - User
 - Order (cart support for authenticated users)
 
+![Diagram](https://user-images.githubusercontent.com/5923943/156840078-baa65610-f4d6-43c5-ab97-a23cfa5028a4.png)
+
 ## Development
 
 ### Docker
 
-```bash
+```bash!
+
 $ cd ecommerce-microservices
 $ mvn clean install
 $ docker-compose up -d
